@@ -4,7 +4,8 @@ package challenges
 
 /**
  * There's probably a more efficient algorithm that uses ints directly with some
- * bit-shifting or modulus, or something like that
+ * bit-shifting or modulus, or something like that,
+ * keeping it simple here with .toString
  */
 object PalindromeChallenge {
   import scala.annotation.tailrec
