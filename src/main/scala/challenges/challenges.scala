@@ -81,8 +81,9 @@ object StatsCalculationChallenge {
   def calculateStats (numbers: String): Stats = {
     // parse and validate
     val arr = numbers.trim.split(" ").map {num =>
-      try(num.toInt) catch {case ex: NumberFormatException => require(false, s"Input must be all integers, got [$num] in [$numbers]")}
-      num.toInt
+      try(num.toInt) catch {
+        case ex: NumberFormatException => require(false, s"Input must be all integers, got [$num] in [$numbers]")
+      }
     }.sorted.toList
     require(arr.nonEmpty, s"There must be at least 1 number, got: $numbers")
 
