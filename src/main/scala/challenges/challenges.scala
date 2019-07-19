@@ -81,8 +81,8 @@ object StatsCalculationChallenge {
   def calculateStats (numbers: String): Stats = {
     // parse and validate
     val arr = numbers.trim.split(" ").map {num =>
-      try(num.toInt) catch {
-        case ex: NumberFormatException => require(false, s"Input must be all integers, got [$num] in [$numbers]")
+      try (num.toInt) catch {
+        case ex: NumberFormatException => throw new IllegalArgumentException(s"Input must be all integers, got [$num] in [$numbers]")
       }
     }.sorted.toList
     require(arr.nonEmpty, s"There must be at least 1 number, got: $numbers")
@@ -93,7 +93,7 @@ object StatsCalculationChallenge {
     val first = arr.head
 
     // we should be able to produce mean, min, max, sum in one go
-    val (_, mean, min, max, sum) = 
+    val (size, mean, min, max, sum) = 
       ((1, first.toDouble, first, first, first) /: arr.tail) {case ((count, accMean, accMin, accMax, accSum), v) =>
         (
           count + 1,
@@ -105,11 +105,11 @@ object StatsCalculationChallenge {
       }
 
     val median: Double = 
-      if (arr.length % 2 == 0) {
+      if (size % 2 == 0) {
         // index of the first middle number
-        val idx = arr.size / 2 - 1
+        val idx = size / 2 - 1
         (arr(idx) + arr(idx+1)) / 2d // average of both middle numbers
-      } else arr(arr.size / 2)
+      } else arr(size / 2)
 
     // i think this could be calculated in one go recursively with the rest,
     // but it might actually be more computation, would have to benchmark to be sure
@@ -117,7 +117,7 @@ object StatsCalculationChallenge {
     val standardDeviation: Double = math.sqrt(
       arr.map {v =>
         math.pow(v - mean, 2)
-      }.foldLeft(0d)(_ + _) / arr.size
+      }.foldLeft(0d)(_ + _) / size
     )
 
     Stats(
