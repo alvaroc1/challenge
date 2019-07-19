@@ -87,9 +87,6 @@ object StatsCalculationChallenge {
     }.sorted.toList
     require(arr.nonEmpty, s"There must be at least 1 number, got: $numbers")
 
-    def minOf (a: Int, b: Int) = if (a < b) a else b
-    def maxOf (a: Int, b: Int) = if (a > b) a else b
-
     val first = arr.head
 
     // we should be able to produce mean, min, max, sum in one go
@@ -98,8 +95,8 @@ object StatsCalculationChallenge {
         (
           count + 1,
           ((accMean * count) + v) / (count + 1), // recursive mean
-          minOf(accMin, v),
-          maxOf(accMax, v),
+          if (v < accMin) v else accMin, // min
+          if (v > accMax) v else accMax, // max
           accSum + v
         )
       }
