@@ -1,4 +1,4 @@
 # challenge
 
 Interactive scastie running in worksheet mode:
-https://scastie.scala-lang.org/C2y3PErBQrG7JI88320hyg
+https://scastie.scala-lang.org/2EmAwLuFR7eArE9jVSamwg
